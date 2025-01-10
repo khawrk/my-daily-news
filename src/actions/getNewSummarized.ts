@@ -18,10 +18,13 @@ export async function getNewsSummarized(content: string): Promise<string> {
     console.log("Summary received:", textSummary);
 
     return textSummary;
-  } catch (error) {
-    console.error("Error summarizing content:", error.message);
-    return "Error: Could not summarize the content.";
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error summarizing content:", error.message);
+      return "Error: Could not summarize the content.";
+    }
   }
+  return "";
 }
 
 // import OpenAI from "openai";

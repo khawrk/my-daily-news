@@ -2,8 +2,6 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import * as cheerio from "cheerio";
 import axios from "axios";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { getNewsSummarized } from "./getNewSummarized";
 
 interface Article {
   url: string;
@@ -43,13 +41,14 @@ export const getFullContent = async (articleUrl: string) => {
     });
 
     return articleContent.trim();
-  } catch (error: any) {
-    console.error("Error fetching full content:", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error fetching full content:", error.message);
+    }
     return null;
   }
 };
 
-// Utility function to limit requests to avoid API rate limits
 export function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

@@ -15,7 +15,9 @@ export default async function handler(
   try {
     const content = await getFullContent(url as string);
     res.status(200).json({ content });
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      res.status(500).json({ error: error.message });
+    }
   }
 }
