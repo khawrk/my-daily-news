@@ -1,8 +1,9 @@
 "use client";
 import { getNews, getFullContent, delay } from "@/actions/getNews";
-import Image from "next/image";
+import Header from "@/components/Header";
 import { getNewsSummarized } from "@/actions/getNewSummarized";
 import { useState, useCallback, useEffect } from "react";
+import News from "@/components/News";
 
 interface News {
   articles: Article[];
@@ -71,37 +72,19 @@ export default function Home() {
   }
 
   return (
-    <div className=" flex flex-col items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <h1 className="text-start font-bold w-full text-xl">
-        My Daily BBC Headlines
-      </h1>
-      {news.articles.map((article: Article, index: number) => (
-        <div
-          key={article.url}
-          className="flex flex-row w-full gap-4 cursor-pointer"
-          onClick={() => handleArticleClicked(article.url)}
-          onKeyUp={() => handleArticleClicked(article.url)}
-        >
-          <div className="w-[60%]">
-            <Image
-              src={article.urlToImage}
-              alt={article.title}
-              width={400}
-              height={200}
-              priority
-            />
-            <h2>Title: {article.title}</h2>
-            <p>Description: {article.description}</p>
-          </div>
-          {/* only display summary of specific article */}
-          {clickedArticleUrl === article.url && summaryMap[article.url] && (
-            <div className="w-[40%]">
-              <h3>News Summary:</h3>
-              <p>{summaryMap[article.url]}</p>
-            </div>
-          )}
-        </div>
-      ))}
+    <div className="relative">
+      <Header />
+      <div className=" flex flex-col items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+        {news.articles.map((article: Article, index: number) => (
+          <News
+            key={article.url}
+            article={article}
+            handleArticleClicked={handleArticleClicked}
+            clickedArticleUrl={clickedArticleUrl}
+            summaryMap={summaryMap}
+          />
+        ))}
+      </div>
     </div>
   );
 }
