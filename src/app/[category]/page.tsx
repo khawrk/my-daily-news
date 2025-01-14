@@ -22,7 +22,7 @@ interface Article {
   urlToImage: string;
 }
 
-const page = () => {
+const Page = () => {
   const { category } = useParams() as { category: string };
   let query = "";
   if (category === "asia") {
@@ -136,4 +136,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
