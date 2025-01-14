@@ -21,16 +21,16 @@ interface FetchedArticle {
   urlToImage: string;
 }
 
-interface Article {
-  author: string;
-  content: string;
-  description: string;
-  publishedAt: string;
-  source: { id: string; name: string };
-  title: string;
-  url: string;
-  urlToImage: string;
-}
+// interface Article {
+//   author: string;
+//   content: string;
+//   description: string;
+//   publishedAt: string;
+//   source: { id: string; name: string };
+//   title: string;
+//   url: string;
+//   urlToImage: string;
+// }
 
 export default function Home() {
   const [news, setNews] = useState<NewsArticle>();
@@ -53,9 +53,8 @@ export default function Home() {
     };
 
     fetchNews();
+    // console.log("news from getNews:", news);
   }, []);
-
-  // console.log(news);
 
   const handleArticleClicked = useCallback(
     async (articleUrl: string) => {
@@ -98,7 +97,7 @@ export default function Home() {
     <div className="w-full z-10 relative">
       <Header />
       <div className=" gap-2 flex flex-row items-center justify-center flex-wrap">
-        {news.articles.map((article: FetchedArticle, index: number) => (
+        {news.articles.map((article: FetchedArticle) => (
           <News
             key={article.link}
             article={article}

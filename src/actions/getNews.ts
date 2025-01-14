@@ -45,7 +45,7 @@ export async function getNews(path: string): Promise<NewsArticle> {
       urlToImage: item["media:thumbnail"]?.[0]?.$.url || "/default-image.jpg",
     }));
 
-  console.log(articles);
+  // console.log("articles found:", articles);
   return { articles };
 }
 

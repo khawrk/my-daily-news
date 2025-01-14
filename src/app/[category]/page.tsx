@@ -23,16 +23,16 @@ interface FetchedArticle {
   urlToImage: string;
 }
 
-interface Article {
-  author: string;
-  content: string;
-  description: string;
-  publishedAt: string;
-  source: { id: string; name: string };
-  title: string;
-  url: string;
-  urlToImage: string;
-}
+// interface Article {
+//   author: string;
+//   content: string;
+//   description: string;
+//   publishedAt: string;
+//   source: { id: string; name: string };
+//   title: string;
+//   url: string;
+//   urlToImage: string;
+// }
 
 const Page = () => {
   const { category } = useParams() as { category: string };
