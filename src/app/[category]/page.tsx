@@ -15,10 +15,10 @@ interface Article {
   author: string;
   content: string;
   description: string;
-  publishedAt: string;
+  pubDate: string;
   source: { id: string; name: string };
   title: string;
-  url: string;
+  link: string;
   urlToImage: string;
 }
 
@@ -45,7 +45,7 @@ const page = () => {
     const fetchNews = async () => {
       if (category) {
         try {
-          const news = await getNews(`/${query}`);
+          const news: NewsArticle = await getNews(`/${query}`);
           setNews(news);
         } catch (error) {
           console.error("Error fetching news:", error);
@@ -96,6 +96,7 @@ const page = () => {
         <div className="w-screen gap-2 flex flex-row items-center justify-center flex-wrap pt-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div
+              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               key={i}
               className="w-[300px] sm:w-[600px] justify-center items-center flex flex-row  cursor-pointer"
             >
@@ -121,7 +122,7 @@ const page = () => {
       <div className="w-screen gap-2 flex flex-row items-center justify-center flex-wrap pt-4">
         {news.articles.map((article: Article, index: number) => (
           <News
-            key={article.url}
+            key={article.link}
             article={article}
             handleArticleClicked={handleArticleClicked}
             clickedArticleUrl={clickedArticleUrl}

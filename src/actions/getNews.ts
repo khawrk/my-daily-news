@@ -13,11 +13,12 @@ interface Article {
   author: string;
   content: string;
   description: string;
-  publishedAt: string;
+  pubDate: string;
   source: { id: string; name: string };
   title: string;
-  url: string;
+  link: string;
   urlToImage: string;
+  "media:thumbnail"?: { $: { url: string } }[];
 }
 
 // Test RSS feed
@@ -31,8 +32,8 @@ export async function getNews(path: string): Promise<NewsArticle> {
 
   // Map parsed data to your Article interface
   const articles = parsedData.rss.channel[0].item
-    .filter((item: any) => !item.link[0].includes("/video"))
-    .map((item: any) => ({
+    .filter((item: Article) => !item.link[0].includes("/video"))
+    .map((item: Article) => ({
       author: "BBC News",
       content: item.description[0],
       description: item.description[0],

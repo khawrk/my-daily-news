@@ -13,10 +13,10 @@ interface Article {
   author: string;
   content: string;
   description: string;
-  publishedAt: string;
+  pubDate: string;
   source: { id: string; name: string };
   title: string;
-  url: string;
+  link: string;
   urlToImage: string;
 }
 
@@ -33,7 +33,7 @@ export default function Home() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const news = await getNews("/world");
+        const news: NewsArticle = await getNews("/world");
         setNews(news);
       } catch (error) {
         console.error("Error fetching news:", error);
@@ -86,9 +86,9 @@ export default function Home() {
     <div className="w-full z-10 relative">
       <Header />
       <div className=" gap-2 flex flex-row items-center justify-center flex-wrap">
-        {news.articles.map((article: Article, index: number) => (
+        {news.articles.map((article: Article) => (
           <News
-            key={article.url}
+            key={article.link}
             article={article}
             handleArticleClicked={handleArticleClicked}
             clickedArticleUrl={clickedArticleUrl}

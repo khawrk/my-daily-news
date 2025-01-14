@@ -1,7 +1,5 @@
 import * as dotenv from "dotenv";
 dotenv.config();
-import * as cheerio from "cheerio";
-import axios from "axios";
 
 const newsSeacrhURL = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=blockchain&apikey=${process.env.NEXT_PUBLIC_ALPHA_KEY}`;
 
