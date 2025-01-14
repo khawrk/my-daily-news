@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AppSidebar } from "@/components/app-sidebar";
+import { MainLayout } from "@/components/MainLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "My Daily News",
-  description: "Get the summarized version of your preferred daily news",
+  title: "Briefly",
+  description: "Stay Up to Date. News, Simplified",
 };
 
 export default function RootLayout({

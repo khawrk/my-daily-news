@@ -1,26 +1,70 @@
+"use server";
 import * as dotenv from "dotenv";
 dotenv.config();
 import * as cheerio from "cheerio";
 import axios from "axios";
+import { parseStringPromise } from "xml2js";
 
-interface Article {
-  url: string;
-  title: string;
+interface NewsArticle {
+  articles: Article[];
 }
 
-export const getNews = async () => {
-  console.log("Fetching news...");
-  const response = await fetch(
-    `https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
-  );
+interface Article {
+  author: string;
+  content: string;
+  description: string;
+  publishedAt: string;
+  source: { id: string; name: string };
+  title: string;
+  url: string;
+  urlToImage: string;
+}
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch news");
-  }
+// Test RSS feed
 
-  const data = await response.json();
-  return data;
-};
+export async function getNews(path: string): Promise<NewsArticle> {
+  const response = await fetch(`https://feeds.bbci.co.uk/news${path}/rss.xml`);
+  const xml = await response.text();
+
+  // Parse XML to JSON
+  const parsedData = await parseStringPromise(xml);
+
+  // Map parsed data to your Article interface
+  const articles = parsedData.rss.channel[0].item
+    .filter((item: any) => !item.link[0].includes("/video"))
+    .map((item: any) => ({
+      author: "BBC News",
+      content: item.description[0],
+      description: item.description[0],
+      publishedAt: item.pubDate[0],
+      source: { id: "bbc-news", name: "BBC News" },
+      title: item.title[0],
+      url: item.link[0],
+      urlToImage: item["media:thumbnail"]?.[0]?.$.url || "/default-image.jpg",
+    }));
+
+  return { articles };
+}
+
+// -- below is fetching using API
+// interface Article {
+//   url: string;
+//   title: string;
+// }
+
+// const newsSeacrhURL = `https://newsapi.org/v2/top-headlines?pageSize=30&sources=bbc-news&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`;
+
+// export const getNews = async () => {
+//   console.log("Fetching news...");
+//   const response = await fetch(newsSeacrhURL);
+
+//   if (!response.ok) {
+//     throw new Error("Failed to fetch news");
+//   }
+
+//   const data = await response.json();
+//   return data;
+// };
 
 // Fetch full article content from a given URL
 export const getFullContent = async (articleUrl: string) => {
@@ -49,6 +93,6 @@ export const getFullContent = async (articleUrl: string) => {
   }
 };
 
-export function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+// export function delay(ms: number) {
+//   return new Promise((resolve) => setTimeout(resolve, ms));
+// }

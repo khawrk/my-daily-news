@@ -26,36 +26,3 @@ export async function getNewsSummarized(content: string): Promise<string> {
   }
   return "";
 }
-
-// import OpenAI from "openai";
-
-// // Initialize OpenAI client
-// const openai = new OpenAI({
-//   apiKey: process.env.OPENAI_API_KEY,
-// });
-
-// export async function getNewsSummarized(content: string) {
-//   try {
-//     // Send the news content to OpenAI for summarization
-//     const completion = await openai.chat.completions.create({
-//       model: "gpt-4o-mini",
-//       messages: [
-//         {
-//           role: "system",
-//           content:
-//             "You are a helpful assistant that summarizes articles concisely.",
-//         },
-//         {
-//           role: "user",
-//           content: `Please summarize the following article:\n\n${content}`,
-//         },
-//       ],
-//     });
-
-//     // Return the summarized text
-//     return completion.choices[0].message?.content;
-//   } catch (error) {
-//     console.error("Error summarizing news:", error);
-//     throw new Error("Failed to get summarized news.");
-//   }
-// }

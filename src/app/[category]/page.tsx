@@ -1,8 +1,10 @@
 "use client";
 import { getNews } from "@/actions/getNews";
-import Header from "@/components/Header";
 import { getNewsSummarized } from "@/actions/getNewSummarized";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useParams } from "next/navigation";
+import Header from "@/components/Header";
+import { Skeleton } from "@/components/ui/skeleton";
 import News from "@/components/News";
 
 interface NewsArticle {
@@ -20,7 +22,16 @@ interface Article {
   urlToImage: string;
 }
 
-export default function Home() {
+const page = () => {
+  const { category } = useParams() as { category: string };
+  let query = "";
+  if (category === "asia") {
+    query = "world/asia";
+  } else if (category === "entertainment") {
+    query = "entertainment_and_arts";
+  } else {
+    query = category;
+  }
   const [news, setNews] = useState<NewsArticle>();
   const [isSummaryLoading, setIsSummaryLoading] = useState(true);
   const [clickedArticleUrl, setClickedArticleUrl] = useState<string | null>(
@@ -32,18 +43,18 @@ export default function Home() {
 
   useEffect(() => {
     const fetchNews = async () => {
-      try {
-        const news = await getNews("/world");
-        setNews(news);
-      } catch (error) {
-        console.error("Error fetching news:", error);
+      if (category) {
+        try {
+          const news = await getNews(`/${query}`);
+          setNews(news);
+        } catch (error) {
+          console.error("Error fetching news:", error);
+        }
       }
     };
 
     fetchNews();
-  }, []);
-
-  // console.log(news);
+  }, [query, category]);
 
   const handleArticleClicked = useCallback(
     async (articleUrl: string) => {
@@ -79,14 +90,35 @@ export default function Home() {
   );
 
   if (!news) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Header path={category} />
+        <div className="w-screen gap-2 flex flex-row items-center justify-center flex-wrap pt-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div
+              key={i}
+              className="w-[300px] sm:w-[600px] justify-center items-center flex flex-row  cursor-pointer"
+            >
+              <div className="w-[60%]">
+                <div className="w-full items-center flex flex-col gap-3">
+                  <Skeleton className="w-[300px] h-40 rounded-xl" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-[250px]" />
+                    <Skeleton className="h-4 w-[200px]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
-  const { state } = useSidebar();
   return (
-    <div className="w-full z-10 relative">
-      <Header />
-      <div className=" gap-2 flex flex-row items-center justify-center flex-wrap">
+    <div>
+      <Header path={category} />
+      <div className="w-screen gap-2 flex flex-row items-center justify-center flex-wrap pt-4">
         {news.articles.map((article: Article, index: number) => (
           <News
             key={article.url}
@@ -101,4 +133,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default page;
