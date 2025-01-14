@@ -120,7 +120,7 @@ const Page = () => {
     <div>
       <Header path={category} />
       <div className="w-screen gap-2 flex flex-row items-center justify-center flex-wrap pt-4">
-        {news.articles.map((article: Article, index: number) => (
+        {news.articles.map((article: Article) => (
           <News
             key={article.link}
             article={article}
