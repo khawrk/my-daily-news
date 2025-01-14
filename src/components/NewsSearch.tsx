@@ -10,15 +10,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { languageCodes } from "@/constants/languageCodes";
+import en from "i18n-iso-countries/langs/en.json";
 
-countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
+countries.registerLocale(en);
 const countryCode = (languageCode: string) => {
   return countries.getName(languageCode.toUpperCase(), "en", {
     select: "official",
   });
 };
 
-const NewsSearch = (props: Props) => {
+const NewsSearch = () => {
   return (
     <div className="w-full justify-center flex items-center flex-rolw gap-2 p-4">
       <h2 className="font-bold">Find News Headlines:</h2>
