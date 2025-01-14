@@ -82,7 +82,6 @@ export default function Home() {
     return <div>Loading...</div>;
   }
 
-  const { state } = useSidebar();
   return (
     <div className="w-full z-10 relative">
       <Header />
