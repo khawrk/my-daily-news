@@ -6,10 +6,10 @@ import axios from "axios";
 import { parseStringPromise } from "xml2js";
 
 interface NewsArticle {
-  articles: Article[];
+  articles: FetchedArticle[];
 }
 
-interface Article {
+interface FetchedArticle {
   author: string;
   content: string;
   description: string;
@@ -29,11 +29,12 @@ export async function getNews(path: string): Promise<NewsArticle> {
 
   // Parse XML to JSON
   const parsedData = await parseStringPromise(xml);
+  // console.log(parsedData.rss.channel[0]);
 
   // Map parsed data to your Article interface
   const articles = parsedData.rss.channel[0].item
-    .filter((item: Article) => !item.link[0].includes("/video"))
-    .map((item: Article) => ({
+    .filter((item: FetchedArticle) => !item.link[0].includes("/video"))
+    .map((item: FetchedArticle) => ({
       author: "BBC News",
       content: item.description[0],
       description: item.description[0],
@@ -44,6 +45,7 @@ export async function getNews(path: string): Promise<NewsArticle> {
       urlToImage: item["media:thumbnail"]?.[0]?.$.url || "/default-image.jpg",
     }));
 
+  console.log(articles);
   return { articles };
 }
 
@@ -69,9 +71,9 @@ export async function getNews(path: string): Promise<NewsArticle> {
 
 // Fetch full article content from a given URL
 export const getFullContent = async (articleUrl: string) => {
-  if (typeof window !== "undefined") {
-    throw new Error("getFullContent must be called from the server!");
-  }
+  // if (typeof window !== "undefined") {
+  //   throw new Error("getFullContent must be called from the server!");
+  // }
 
   try {
     // Make the server-side request

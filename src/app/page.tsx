@@ -6,17 +6,29 @@ import { useState, useCallback, useEffect } from "react";
 import News from "@/components/News";
 
 interface NewsArticle {
-  articles: Article[];
+  articles: FetchedArticle[];
 }
 
-interface Article {
+interface FetchedArticle {
   author: string;
   content: string;
   description: string;
   pubDate: string;
   source: { id: string; name: string };
   title: string;
-  link: string;
+  link?: string | undefined;
+  url?: string | undefined;
+  urlToImage: string;
+}
+
+interface Article {
+  author: string;
+  content: string;
+  description: string;
+  publishedAt: string;
+  source: { id: string; name: string };
+  title: string;
+  url: string;
   urlToImage: string;
 }
 
@@ -86,7 +98,7 @@ export default function Home() {
     <div className="w-full z-10 relative">
       <Header />
       <div className=" gap-2 flex flex-row items-center justify-center flex-wrap">
-        {news.articles.map((article: Article) => (
+        {news.articles.map((article: FetchedArticle, index: number) => (
           <News
             key={article.link}
             article={article}
