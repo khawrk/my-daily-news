@@ -1,9 +1,9 @@
-import React from "react";
+// import React from "react";
 
-type Props = {};
+// type Props = {};
 
-const NewsSummary = (props: Props) => {
-  return <div>NewsSummary</div>;
-};
+// const NewsSummary = (props: Props) => {
+//   return <div>NewsSummary</div>;
+// };
 
-export default NewsSummary;
+// export default NewsSummary;
