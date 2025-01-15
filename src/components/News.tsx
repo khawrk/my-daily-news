@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
+// import Link from "next/link";
 import { Button } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
 
@@ -10,7 +10,8 @@ interface Article {
   pubDate: string;
   source: { id: string; name: string };
   title: string;
-  link: string;
+  link?: string | undefined;
+  url?: string | undefined;
   urlToImage: string;
 }
 
@@ -29,40 +30,38 @@ const News = ({
   clickedArticleUrl,
   summaryMap,
   isSummaryLoading,
-  
 }: Props) => {
   return (
     <div
-      key={article.title}
+      key={article.url}
       className="w-[300px] sm:w-[600px] justify-center items-center flex flex-col sm:flex-row  cursor-pointer"
-      onClick={() => handleArticleClicked(article.link)}
-      onKeyUp={() => handleArticleClicked(article.link)}
+      onClick={() => handleArticleClicked(article.url ?? "")}
+      onKeyUp={() => handleArticleClicked(article.url ?? "")}
     >
       <div className="sm:w-[60%] w-full">
         <div className="w-full sm:w-[400px] items-center flex flex-col gap-3">
-          <Image
+          <img
             src={article.urlToImage}
             alt={article.title}
             width={300}
             height={300}
-            priority
           />
           <h2 className="font-bold text-center text-md w-[300px]">
             {article.title}
           </h2>
           <p className="text-sm w-[300px]">{article.description}</p>
           <Button asChild>
-            <Link href={article.link} target="_blank">
+            <a href={article.url ?? ""} target="_blank" rel="noreferrer">
               {" "}
               Full Article
-            </Link>
+            </a>
           </Button>
         </div>
       </div>
 
       {/* only display summary of specific article */}
       {/* Show skeleton when processing */}
-      {isSummaryLoading && clickedArticleUrl === article.link ? (
+      {isSummaryLoading && clickedArticleUrl === article.url ? (
         <div className="w-full sm:w-[400px] flex flex-col justify-end items-start space-y-3">
           <Skeleton className="w-[300px] h-40 rounded-xl" />
           <div className="space-y-2">
@@ -71,10 +70,10 @@ const News = ({
           </div>
         </div>
       ) : null}
-      {clickedArticleUrl === article.link && summaryMap[article.link] && (
+      {clickedArticleUrl === article.url && summaryMap[article.url] && (
         <div className="w-full sm:w-[400px]">
           <h3 className="font-bold text-md">News Summary:</h3>
-          <p className="text-xs">{summaryMap[article.link]}</p>
+          <p className="text-xs">{summaryMap[article.url]}</p>
         </div>
       )}
     </div>
