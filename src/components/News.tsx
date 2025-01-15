@@ -34,28 +34,34 @@ const News = ({
   return (
     <div
       key={article.url}
-      className="w-[300px] sm:w-[600px] justify-center items-center flex flex-col sm:flex-row  cursor-pointer"
-      onClick={() => handleArticleClicked(article.url ?? "")}
-      onKeyUp={() => handleArticleClicked(article.url ?? "")}
+      className="w-[300px] sm:w-[600px] justify-center items-center flex flex-col sm:flex-row "
     >
-      <div className="sm:w-[60%] w-full">
+      <div className="sm:w-[60%] w-full bg-zinc-200 border-zinc-100 border-2 flex rounded-md">
         <div className="w-full sm:w-[400px] items-center flex flex-col gap-3">
           <img
             src={article.urlToImage}
             alt={article.title}
-            width={300}
+            width={400}
             height={300}
           />
           <h2 className="font-bold text-center text-md w-[300px]">
             {article.title}
           </h2>
           <p className="text-sm w-[300px]">{article.description}</p>
-          <Button asChild>
-            <a href={article.url ?? ""} target="_blank" rel="noreferrer">
-              {" "}
-              Full Article
-            </a>
-          </Button>
+          <div className="flex gap-2 pb-2">
+            <Button asChild>
+              <a href={article.url ?? ""} target="_blank" rel="noreferrer">
+                {" "}
+                Full Article
+              </a>
+            </Button>
+            <Button
+              onClick={() => handleArticleClicked(article.url ?? "")}
+              onKeyUp={() => handleArticleClicked(article.url ?? "")}
+            >
+              Summarize
+            </Button>
+          </div>
         </div>
       </div>
 
