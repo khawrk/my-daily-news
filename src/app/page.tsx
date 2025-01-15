@@ -3,6 +3,7 @@ import { getNews } from "@/actions/getNews";
 import Header from "@/components/Header";
 import { getNewsSummarized } from "@/actions/getNewSummarized";
 import { useState, useCallback, useEffect } from "react";
+import Briefly from "../../public/Briefly.svg";
 import News from "@/components/News";
 
 interface NewsArticle {
@@ -20,17 +21,6 @@ interface FetchedArticle {
   url?: string | undefined;
   urlToImage: string;
 }
-
-// interface Article {
-//   author: string;
-//   content: string;
-//   description: string;
-//   publishedAt: string;
-//   source: { id: string; name: string };
-//   title: string;
-//   url: string;
-//   urlToImage: string;
-// }
 
 export default function Home() {
   const [news, setNews] = useState<NewsArticle>();
@@ -89,8 +79,23 @@ export default function Home() {
     [summaryMap]
   );
 
+  // close the article summary by clicking close button
+  const closeArticleSummary = () => {
+    setClickedArticleUrl(null);
+  };
+
   if (!news) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-full bg-white flex justify-center items-center h-screen">
+        <img
+          src={Briefly.src}
+          alt="Briefly Icon"
+          width={100}
+          height={100}
+          className="animate-bounce"
+        />
+      </div>
+    );
   }
 
   return (
@@ -106,6 +111,7 @@ export default function Home() {
             summaryMap={summaryMap}
             isSummaryLoading={isSummaryLoading}
             setIsSummaryLoading={setIsSummaryLoading}
+            closeArticleSummary={closeArticleSummary}
           />
         ))}
       </div>

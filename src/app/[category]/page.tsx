@@ -23,17 +23,6 @@ interface FetchedArticle {
   urlToImage: string;
 }
 
-// interface Article {
-//   author: string;
-//   content: string;
-//   description: string;
-//   publishedAt: string;
-//   source: { id: string; name: string };
-//   title: string;
-//   url: string;
-//   urlToImage: string;
-// }
-
 const Page = () => {
   const { category } = useParams() as { category: string };
   let query = "";
@@ -101,6 +90,11 @@ const Page = () => {
     [summaryMap]
   );
 
+  // close the article summary by clicking close button
+  const closeArticleSummary = () => {
+    setClickedArticleUrl(null);
+  };
+
   if (!news) {
     return (
       <div>
@@ -141,6 +135,7 @@ const Page = () => {
             summaryMap={summaryMap}
             isSummaryLoading={isSummaryLoading}
             setIsSummaryLoading={setIsSummaryLoading}
+            closeArticleSummary={closeArticleSummary}
           />
         ))}
       </div>
