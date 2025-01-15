@@ -1,5 +1,3 @@
-// import Image from "next/image";
-// import Link from "next/link";
 import { Button } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
 
@@ -22,6 +20,7 @@ type Props = {
   summaryMap: Record<string, string | null>;
   isSummaryLoading: boolean;
   setIsSummaryLoading: (loading: boolean) => void;
+  closeArticleSummary: () => void;
 };
 
 const News = ({
@@ -30,19 +29,22 @@ const News = ({
   clickedArticleUrl,
   summaryMap,
   isSummaryLoading,
+  closeArticleSummary,
 }: Props) => {
+  console.log(clickedArticleUrl);
   return (
     <div
       key={article.url}
-      className="w-[300px] sm:w-[600px] justify-center items-center flex flex-col sm:flex-row "
+      className="w-[300px] sm:w-[600px] h-full justify-center flex flex-col sm:flex-row "
     >
-      <div className="sm:w-[60%] w-full bg-zinc-200 border-zinc-100 border-2 flex rounded-md">
-        <div className="w-full sm:w-[400px] items-center flex flex-col gap-3">
+      <div className="sm:w-[60%] w-full h-full bg-zinc-200 border-zinc-100 border-2 flex rounded-md">
+        <div className="w-full sm:w-[400px] h-full items-center flex flex-col gap-3">
           <img
             src={article.urlToImage}
             alt={article.title}
             width={400}
             height={300}
+            className="rounded-t-md"
           />
           <h2 className="font-bold text-center text-md w-[300px]">
             {article.title}
@@ -68,7 +70,7 @@ const News = ({
       {/* only display summary of specific article */}
       {/* Show skeleton when processing */}
       {isSummaryLoading && clickedArticleUrl === article.url ? (
-        <div className="w-full sm:w-[400px] flex flex-col justify-end items-start space-y-3">
+        <div className="w-full sm:w-[400px] h-full flex flex-col justify-end items-start space-y-3">
           <Skeleton className="w-[300px] h-40 rounded-xl" />
           <div className="space-y-2">
             <Skeleton className="h-4 w-[250px]" />
@@ -77,8 +79,17 @@ const News = ({
         </div>
       ) : null}
       {clickedArticleUrl === article.url && summaryMap[article.url] && (
-        <div className="w-full sm:w-[400px]">
-          <h3 className="font-bold text-md">News Summary:</h3>
+        <div className="w-full sm:w-[400px] h-full bg-white border-2 p-1 rounded-md">
+          <div className="flex justify-between items-center p-1">
+            <h3 className="font-bold text-md">News Summary:</h3>
+            <Button
+              type="button"
+              onClick={() => closeArticleSummary()}
+              className="p-2 w-1 h-1 text-xs rounded-full"
+            >
+              X
+            </Button>
+          </div>
           <p className="text-xs">{summaryMap[article.url]}</p>
         </div>
       )}

@@ -79,6 +79,11 @@ export default function Home() {
     [summaryMap]
   );
 
+  // close the article summary by clicking close button
+  const closeArticleSummary = () => {
+    setClickedArticleUrl(null);
+  };
+
   if (!news) {
     return (
       <div className="w-full bg-white flex justify-center items-center h-screen">
@@ -106,6 +111,7 @@ export default function Home() {
             summaryMap={summaryMap}
             isSummaryLoading={isSummaryLoading}
             setIsSummaryLoading={setIsSummaryLoading}
+            closeArticleSummary={closeArticleSummary}
           />
         ))}
       </div>
