@@ -43,7 +43,6 @@ export default function Home() {
     };
 
     fetchNews();
-    // console.log("news from getNews:", news);
   }, []);
 
   const handleArticleClicked = useCallback(
@@ -88,7 +87,7 @@ export default function Home() {
     return (
       <div className="w-full bg-white flex justify-center items-center h-screen">
         <img
-          src={Briefly.src}
+          src="./Briefly.svg"
           alt="Briefly Icon"
           width={100}
           height={100}
