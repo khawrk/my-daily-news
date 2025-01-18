@@ -27,7 +27,7 @@ const Header = ({ path }: Props) => {
             {path.charAt(0).toUpperCase() + path.slice(1)}
           </Badge>
         ) : (
-          <Badge variant="outline" className="h-6">
+          <Badge variant="outline" className="h-6 bg-zinc-200">
             World
           </Badge>
         )}

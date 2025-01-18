@@ -104,12 +104,12 @@ const Page = () => {
             <div
               // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               key={i}
-              className="w-[300px] sm:w-[600px] justify-center items-center flex flex-row  cursor-pointer"
+              className="w-[300px] sm:w-[600px] sm:h-[450px] justify-center items-start flex flex-row  cursor-pointer"
             >
               <div className="w-[60%]">
                 <div className="w-full items-center flex flex-col gap-3">
                   <Skeleton className="w-[300px] h-40 rounded-xl" />
-                  <div className="space-y-2">
+                  <div className="space-y-2 flex flex-col justify-center items-center">
                     <Skeleton className="h-4 w-[250px]" />
                     <Skeleton className="h-4 w-[200px]" />
                   </div>
