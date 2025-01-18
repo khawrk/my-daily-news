@@ -3,7 +3,7 @@ import { getNews } from "@/actions/getNews";
 import Header from "@/components/Header";
 import { getNewsSummarized } from "@/actions/getNewSummarized";
 import { useState, useCallback, useEffect } from "react";
-import Briefly from "../../public/Briefly.svg";
+import Image from "next/image";
 import News from "@/components/News";
 
 interface NewsArticle {
@@ -86,7 +86,7 @@ export default function Home() {
   if (!news) {
     return (
       <div className="w-full bg-white flex justify-center items-center h-screen">
-        <img
+        <Image
           src="./Briefly.svg"
           alt="Briefly Icon"
           width={100}
