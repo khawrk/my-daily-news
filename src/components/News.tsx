@@ -76,9 +76,9 @@ const News = ({
           {isSummaryLoading ? (
             <div className="h-full flex flex-col justify-start items-center space-y-3">
               <Skeleton className="w-[300px] h-40 rounded-xl" />
-              <div className="space-y-2">
-                <Skeleton className="h-4 w-[250px]" />
-                <Skeleton className="h-4 w-[200px]" />
+              <div className="space-y-2 flex flex-col">
+                <Skeleton className="h-4 w-[250px] self-center" />
+                <Skeleton className="h-4 w-[200px] self-center" />
               </div>
             </div>
           ) : null}
