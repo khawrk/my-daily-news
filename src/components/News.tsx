@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
 
@@ -23,6 +24,8 @@ type Props = {
   closeArticleSummary: () => void;
 };
 
+type textOptions = "xs" | "sm" | "md" | "lg" | "xl";
+
 const News = ({
   article,
   handleArticleClicked,
@@ -31,7 +34,42 @@ const News = ({
   isSummaryLoading,
   closeArticleSummary,
 }: Props) => {
-  console.log(clickedArticleUrl);
+  const [textSize, setTextSize] = useState<textOptions>("xs");
+  const increaseTextSize = () => {
+    if (textSize === "xl") return;
+    setTextSize((prev) => {
+      switch (prev) {
+        case "xs":
+          return "sm";
+        case "sm":
+          return "md";
+        case "md":
+          return "lg";
+        case "lg":
+          return "xl";
+        default:
+          return "xs";
+      }
+    });
+  };
+  const decreaseTextSize = () => {
+    if (textSize === "xs") return;
+    setTextSize((prev) => {
+      switch (prev) {
+        case "sm":
+          return "xs";
+        case "md":
+          return "sm";
+        case "lg":
+          return "md";
+        case "xl":
+          return "lg";
+        default:
+          return "xs";
+      }
+    });
+  };
+
   return (
     <div
       key={article.url}
@@ -86,15 +124,31 @@ const News = ({
             <div className="h-full">
               <div className="flex justify-between items-center p-1">
                 <h3 className="font-bold text-md">News Summary:</h3>
-                <Button
-                  type="button"
-                  onClick={() => closeArticleSummary()}
-                  className="p-2 w-1 h-1 text-xs rounded-full"
-                >
-                  X
-                </Button>
+                <div className="flex gap-1 items-center">
+                  <Button
+                    type="button"
+                    onClick={increaseTextSize}
+                    className="p-3 w-2 h-2 bg-white text-black border-zinc-400 border-2 hover:text-white text-xs rounded-md"
+                  >
+                    A+
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={decreaseTextSize}
+                    className="p-3 w-2 h-2 bg-white text-black border-zinc-400 border-2 hover:text-white text-xs rounded-md"
+                  >
+                    A-
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => closeArticleSummary()}
+                    className="p-2 w-1 h-1 text-xs rounded-full"
+                  >
+                    X
+                  </Button>
+                </div>
               </div>
-              <p className="text-xs">{summaryMap[article.url]}</p>
+              <p className={`text-${textSize}`}>{summaryMap[article.url]}</p>
             </div>
           )}
         </div>
