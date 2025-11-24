@@ -21,8 +21,6 @@ interface FetchedArticle {
   "media:thumbnail"?: { $: { url: string } }[];
 }
 
-// Test RSS feed
-
 export async function getNews(path: string): Promise<NewsArticle> {
   const response = await fetch(`https://feeds.bbci.co.uk/news${path}/rss.xml`);
   const xml = await response.text();
@@ -49,32 +47,8 @@ export async function getNews(path: string): Promise<NewsArticle> {
   return { articles };
 }
 
-// -- below is fetching using API
-// interface Article {
-//   url: string;
-//   title: string;
-// }
-
-// const newsSeacrhURL = `https://newsapi.org/v2/top-headlines?pageSize=30&sources=bbc-news&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`;
-
-// export const getNews = async () => {
-//   console.log("Fetching news...");
-//   const response = await fetch(newsSeacrhURL);
-
-//   if (!response.ok) {
-//     throw new Error("Failed to fetch news");
-//   }
-
-//   const data = await response.json();
-//   return data;
-// };
-
 // Fetch full article content from a given URL
 export const getFullContent = async (articleUrl: string) => {
-  // if (typeof window !== "undefined") {
-  //   throw new Error("getFullContent must be called from the server!");
-  // }
-
   try {
     // Make the server-side request
     const { data } = await axios.get(articleUrl);

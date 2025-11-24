@@ -15,7 +15,8 @@ interface FetchedArticle {
   author: string;
   content: string;
   description: string;
-  pubDate: string;
+  pubDate?: string;
+  publishedAt?: string;
   source: { id: string; name: string };
   title: string;
   link?: string | undefined;
@@ -56,6 +57,8 @@ const Page = () => {
 
     fetchNews();
   }, [query, category]);
+
+  console.log("news", news);
 
   const handleArticleClicked = useCallback(
     async (articleUrl: string) => {
