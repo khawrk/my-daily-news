@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
+import { Badge } from "./ui/badge";
+import { formatToLocalDate } from "@/hooks/formatTime";
 
 interface Article {
   author: string;
   content: string;
   description: string;
-  pubDate: string;
+  pubDate?: string;
+  publishedAt?: string;
   source: { id: string; name: string };
   title: string;
   link?: string | undefined;
@@ -76,14 +79,19 @@ const News = ({
       className="w-[300px] sm:min-w-[700px] h-full sm:h-[450px] justify-center flex flex-col sm:flex-row "
     >
       <div className="sm:w-[50%] w-full h-full bg-zinc-200 border-zinc-100 border-2 flex rounded-md">
-        <div className="w-full sm:w-[400px] h-full justify-between items-center flex flex-col gap-3">
-          <img
-            src={article.urlToImage}
-            alt={article.title}
-            width={400}
-            height={300}
-            className="rounded-t-md"
-          />
+        <div className=" w-full sm:w-[400px] h-full justify-between items-center flex flex-col gap-3">
+          <div className="relative">
+            <Badge  className="flex justify-center w-[40%] bg-blue-400 hover:bg-blue-400 absolute top-1 right-1 text-white h-[20px] z-10">
+              {article.publishedAt ? formatToLocalDate(article.publishedAt?.toString()) : null}
+            </Badge>
+            <img
+              src={article.urlToImage}
+              alt={article.title}
+              width={400}
+              height={300}
+              className="rounded-t-md"
+            />
+          </div>
           <h2 className="font-bold text-center text-md w-[300px]">
             {article.title}
           </h2>
