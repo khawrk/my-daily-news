@@ -1,12 +1,6 @@
 import type { NextConfig } from "next";
-const withPWA = require("next-pwa")({
-  dest: "public",
-  register: true,
-  skipWaiting: true,
-  disable: process.env.NODE_ENV === "development",
-});
 
-const nextConfig: NextConfig = withPWA({
+const baseConfig: NextConfig = {
   webpack(config: { module: { rules: { test: RegExp; use: string[] }[] } }) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -31,6 +25,20 @@ const nextConfig: NextConfig = withPWA({
       },
     ],
   },
+};
+
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
 });
 
-export default nextConfig;
+const pwaConfig = withPWA(baseConfig);
+
+// Fix: next-pwa sets devIndicators to false (boolean), but Next.js 15+ expects an object
+if (pwaConfig.devIndicators === false) {
+  delete pwaConfig.devIndicators;
+}
+
+export default pwaConfig;
