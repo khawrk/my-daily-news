@@ -1,7 +1,6 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  webpack(config: { module: { rules: { test: RegExp; use: string[] }[] } }) {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],
@@ -9,7 +8,11 @@ const nextConfig: NextConfig = {
     return config;
   },
   reactStrictMode: true,
-  devIndicators: {},
+  devIndicators: {
+    appIsrStatus: false,
+    buildActivity: false,
+    buildActivityPosition: "bottom-right",
+  },
   images: {
     remotePatterns: [
       {
