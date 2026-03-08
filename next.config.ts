@@ -3,6 +3,7 @@ const withPWA = require("next-pwa")({
   dest: "public",
   register: true,
   skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
 });
 
 const nextConfig: NextConfig = withPWA({
@@ -14,10 +15,6 @@ const nextConfig: NextConfig = withPWA({
     return config;
   },
   reactStrictMode: true,
-  devIndicators: {
-    appIsrStatus: false,
-    buildActivity: false,
-  },
   images: {
     remotePatterns: [
       {
