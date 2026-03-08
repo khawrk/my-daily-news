@@ -14,6 +14,10 @@ const nextConfig: NextConfig = withPWA({
     return config;
   },
   reactStrictMode: true,
+  devIndicators: {
+    appIsrStatus: false,
+    buildActivity: false,
+  },
   images: {
     remotePatterns: [
       {
