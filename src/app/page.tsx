@@ -115,7 +115,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-primary tracking-tight text-balance">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
             Today&apos;s Headlines
           </h2>
           <p className="mt-4 text-muted-foreground text-lg max-w-2xl">
@@ -146,7 +146,7 @@ export default function Home() {
       <footer className="border-t border-border mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="font-serif text-xl text-primary">Briefly.</p>
+            <p className="font-display text-xl font-bold text-primary">Briefly</p>
             <p className="text-sm text-muted-foreground">
               Stay informed. Stay ahead.
             </p>

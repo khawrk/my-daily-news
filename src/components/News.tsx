@@ -79,12 +79,12 @@ const News = ({
   const isExpanded = clickedArticleUrl === article.url;
 
   return (
-    <article className="group w-full">
-      <div className={cn("flex flex-col lg:flex-row gap-0 transition-all duration-300", isExpanded && "lg:gap-0")}>
+    <article className={cn("group", isExpanded && "md:col-span-2")}>
+      <div className="flex flex-col lg:flex-row gap-4 transition-all duration-300">
         {/* Main Card */}
         <Card className={cn(
-          "relative overflow-hidden transition-all duration-300 hover:border-primary/30",
-          isExpanded ? "lg:w-1/2" : "w-full"
+          "relative overflow-hidden transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5",
+          isExpanded ? "lg:flex-1" : "w-full"
         )}>
           {/* Image Section */}
           <div className="relative aspect-[16/10] overflow-hidden">
@@ -122,7 +122,7 @@ const News = ({
           
           {/* Content Section */}
           <div className="p-5 sm:p-6 space-y-4">
-            <h2 className="font-serif text-xl sm:text-2xl leading-tight text-card-foreground line-clamp-3 text-balance">
+            <h2 className="font-display text-lg sm:text-xl font-semibold leading-snug text-card-foreground line-clamp-3">
               {article.title}
             </h2>
             
@@ -155,11 +155,11 @@ const News = ({
 
         {/* Summary Panel */}
         {isExpanded && (
-          <Card className="lg:w-1/2 bg-secondary/50 lg:border-l-0 lg:rounded-l-none overflow-hidden animate-in slide-in-from-right-5 duration-300">
+          <Card className="lg:flex-1 bg-secondary/50 overflow-hidden animate-in slide-in-from-bottom-2 lg:slide-in-from-right-2 duration-300">
             <CardContent className="p-5 sm:p-6 h-full flex flex-col">
               {/* Summary Header */}
               <div className="flex items-center justify-between pb-4 border-b border-border">
-                <h3 className="font-serif text-lg text-card-foreground">Summary</h3>
+                <h3 className="font-display text-lg font-semibold text-card-foreground">AI Summary</h3>
                 <div className="flex items-center gap-2">
                   <Button
                     type="button"

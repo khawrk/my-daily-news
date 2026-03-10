@@ -19,8 +19,8 @@ const Header = ({ path }: Props) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           <div className="flex items-center gap-4 sm:gap-8">
-            <h1 className="font-serif text-2xl sm:text-3xl tracking-tight text-primary">
-              Briefly.
+            <h1 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-primary">
+              Briefly
             </h1>
             <nav className="hidden sm:flex items-center gap-1">
               <span className="text-muted-foreground text-sm tracking-wide uppercase">
