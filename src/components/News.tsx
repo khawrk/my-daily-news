@@ -79,15 +79,15 @@ const News = ({
   const isExpanded = clickedArticleUrl === article.url;
 
   return (
-    <article className={cn("group", isExpanded && "md:col-span-2")}>
-      <div className="flex flex-col lg:flex-row gap-4 transition-all duration-300">
+    <article className={cn("group h-full", isExpanded && "md:col-span-2")}>
+      <div className="flex flex-col lg:flex-row gap-4 transition-all duration-300 h-full">
         {/* Main Card */}
         <Card className={cn(
-          "relative overflow-hidden transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5",
+          "relative overflow-hidden transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 flex flex-col h-full",
           isExpanded ? "lg:flex-1" : "w-full"
         )}>
           {/* Image Section */}
-          <div className="relative aspect-[16/10] overflow-hidden">
+          <div className="relative aspect-[16/9] overflow-hidden flex-shrink-0">
             {!imageError && article.urlToImage ? (
               <img
                 src={article.urlToImage}
@@ -121,17 +121,17 @@ const News = ({
           </div>
           
           {/* Content Section */}
-          <div className="p-5 sm:p-6 space-y-4">
-            <h2 className="font-display text-lg sm:text-xl font-semibold leading-snug text-card-foreground line-clamp-3">
+          <div className="p-5 sm:p-6 flex flex-col flex-1">
+            <h2 className="font-display text-lg sm:text-xl font-semibold leading-snug text-card-foreground line-clamp-2 min-h-[3.5rem]">
               {article.title}
             </h2>
             
-            <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+            <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 mt-3 min-h-[2.5rem]">
               {article.description}
             </p>
             
             {/* Actions */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-3 pt-4 mt-auto">
               <Button
                 asChild
                 variant="ghost"
