@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
+import { Card, CardContent } from "./ui/card";
 import { formatToLocalDate } from "@/hooks/formatTime";
 import { ArrowRight, X, Plus, Minus } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Article {
   author: string;
@@ -28,6 +30,14 @@ type Props = {
 };
 
 type textOptions = "xs" | "sm" | "base" | "lg" | "xl";
+
+const textSizeClasses: Record<textOptions, string> = {
+  xs: "text-xs",
+  sm: "text-sm",
+  base: "text-base",
+  lg: "text-lg",
+  xl: "text-xl",
+};
 
 const News = ({
   article,
@@ -70,9 +80,12 @@ const News = ({
 
   return (
     <article className="group w-full">
-      <div className={`flex flex-col lg:flex-row gap-0 transition-all duration-300 ${isExpanded ? 'lg:gap-0' : ''}`}>
+      <div className={cn("flex flex-col lg:flex-row gap-0 transition-all duration-300", isExpanded && "lg:gap-0")}>
         {/* Main Card */}
-        <div className={`relative bg-card rounded-lg overflow-hidden border border-border transition-all duration-300 hover:border-primary/30 ${isExpanded ? 'lg:w-1/2' : 'w-full'}`}>
+        <Card className={cn(
+          "relative overflow-hidden transition-all duration-300 hover:border-primary/30",
+          isExpanded ? "lg:w-1/2" : "w-full"
+        )}>
           {/* Image Section */}
           <div className="relative aspect-[16/10] overflow-hidden">
             {!imageError && article.urlToImage ? (
@@ -133,18 +146,17 @@ const News = ({
               <Button
                 onClick={() => handleArticleClicked(article.url ?? "")}
                 variant="secondary"
-                className="bg-secondary hover:bg-muted text-secondary-foreground"
               >
                 {isExpanded ? "Hide Summary" : "Summarize"}
               </Button>
             </div>
           </div>
-        </div>
+        </Card>
 
         {/* Summary Panel */}
         {isExpanded && (
-          <div className="lg:w-1/2 bg-secondary/50 border border-border lg:border-l-0 rounded-lg lg:rounded-l-none overflow-hidden animate-in slide-in-from-right-5 duration-300">
-            <div className="p-5 sm:p-6 h-full flex flex-col">
+          <Card className="lg:w-1/2 bg-secondary/50 lg:border-l-0 lg:rounded-l-none overflow-hidden animate-in slide-in-from-right-5 duration-300">
+            <CardContent className="p-5 sm:p-6 h-full flex flex-col">
               {/* Summary Header */}
               <div className="flex items-center justify-between pb-4 border-b border-border">
                 <h3 className="font-serif text-lg text-card-foreground">Summary</h3>
@@ -183,20 +195,20 @@ const News = ({
               <div className="flex-1 overflow-y-auto pt-4">
                 {isSummaryLoading ? (
                   <div className="space-y-4">
-                    <Skeleton className="h-4 w-full bg-muted" />
-                    <Skeleton className="h-4 w-[90%] bg-muted" />
-                    <Skeleton className="h-4 w-[95%] bg-muted" />
-                    <Skeleton className="h-4 w-[85%] bg-muted" />
-                    <Skeleton className="h-4 w-[80%] bg-muted" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-[90%]" />
+                    <Skeleton className="h-4 w-[95%]" />
+                    <Skeleton className="h-4 w-[85%]" />
+                    <Skeleton className="h-4 w-[80%]" />
                   </div>
                 ) : summaryMap[article.url ?? ""] ? (
-                  <p className={`text-${textSize} text-card-foreground leading-relaxed`}>
+                  <p className={cn(textSizeClasses[textSize], "text-card-foreground leading-relaxed")}>
                     {summaryMap[article.url ?? ""]}
                   </p>
                 ) : null}
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         )}
       </div>
     </article>
