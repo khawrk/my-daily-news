@@ -100,48 +100,44 @@ const Page = () => {
 
   if (!news) {
     return (
-      <div>
+      <div className="min-h-screen bg-background">
         <Header path={category} />
-        <div className="w-screen gap-2 flex flex-row items-center justify-center flex-wrap pt-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div
-              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-              key={i}
-              className="w-[300px] sm:w-[600px] sm:h-[450px] justify-center items-start flex flex-row  cursor-pointer"
-            >
-              <div className="w-[60%]">
-                <div className="w-full items-center flex flex-col gap-3">
-                  <Skeleton className="w-[300px] h-40 rounded-xl" />
-                  <div className="space-y-2 flex flex-col justify-center items-center">
-                    <Skeleton className="h-4 w-[250px]" />
-                    <Skeleton className="h-4 w-[200px]" />
-                  </div>
-                </div>
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+                key={i}
+                className="h-[30rem] rounded-xl overflow-hidden"
+              >
+                <Skeleton className="w-full h-full" />
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </main>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-background">
       <Header path={category} />
-      <div className="w-screen gap-2 flex flex-row items-center justify-center flex-wrap pt-4">
-        {news.articles.map((article: FetchedArticle) => (
-          <News
-            key={article.url}
-            article={article}
-            handleArticleClicked={handleArticleClicked}
-            clickedArticleUrl={clickedArticleUrl}
-            summaryMap={summaryMap}
-            isSummaryLoading={isSummaryLoading}
-            setIsSummaryLoading={setIsSummaryLoading}
-            closeArticleSummary={closeArticleSummary}
-          />
-        ))}
-      </div>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {news.articles.map((article: FetchedArticle) => (
+            <News
+              key={article.url}
+              article={article}
+              handleArticleClicked={handleArticleClicked}
+              clickedArticleUrl={clickedArticleUrl}
+              summaryMap={summaryMap}
+              isSummaryLoading={isSummaryLoading}
+              setIsSummaryLoading={setIsSummaryLoading}
+              closeArticleSummary={closeArticleSummary}
+            />
+          ))}
+        </div>
+      </main>
     </div>
   );
 };
