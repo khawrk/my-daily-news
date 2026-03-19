@@ -1,3 +1,10 @@
+import withPWA from "next-pwa";
+
+const pwaConfig = withPWA({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack(config) {
@@ -9,7 +16,6 @@ const nextConfig = {
   },
   reactStrictMode: true,
   devIndicators: {
-    appIsrStatus: false,
     buildActivity: false,
     buildActivityPosition: "bottom-right",
   },
@@ -31,4 +37,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default pwaConfig(nextConfig);
