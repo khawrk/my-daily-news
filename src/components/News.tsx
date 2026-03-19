@@ -79,15 +79,15 @@ const News = ({
   const isExpanded = clickedArticleUrl === article.url;
 
   return (
-    <article className={cn("group h-full", isExpanded && "md:col-span-2")}>
+    <article className={cn("group h-[30rem]", isExpanded && "md:col-span-2")}>
       <div className="flex flex-col lg:flex-row gap-4 transition-all duration-300 h-full">
         {/* Main Card */}
         <Card className={cn(
-          "relative overflow-hidden transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 flex flex-col h-full",
+          "relative overflow-hidden transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 flex flex-col flex-1",
           isExpanded ? "lg:flex-1" : "w-full"
         )}>
           {/* Image Section */}
-          <div className="relative aspect-[16/9] overflow-hidden flex-shrink-0">
+          <div className="relative h-[13rem] lg:h-[11rem] overflow-hidden flex-shrink-0">
             {!imageError && article.urlToImage ? (
               <img
                 src={article.urlToImage}
@@ -121,7 +121,7 @@ const News = ({
           </div>
           
           {/* Content Section */}
-          <div className="p-5 sm:p-6 flex flex-col flex-1">
+          <div className="p-5 sm:p-6 flex flex-col flex-1 overflow-hidden">
             <h2 className="font-display text-lg sm:text-xl font-semibold leading-snug text-card-foreground line-clamp-2 min-h-[3.5rem]">
               {article.title}
             </h2>
@@ -137,9 +137,9 @@ const News = ({
                 variant="ghost"
                 className="text-primary hover:text-primary hover:bg-primary/10 px-0 group/btn"
               >
-                <a href={article.url ?? ""} target="_blank" rel="noreferrer" className="flex items-center gap-2">
+                <a href={article.url ?? ""} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-2">
                   Read Full Article
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5" />
                 </a>
               </Button>
               
