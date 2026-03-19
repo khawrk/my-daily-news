@@ -1,4 +1,3 @@
-import { Badge } from "./ui/badge";
 import {
   Select,
   SelectContent,
@@ -16,40 +15,43 @@ const Header = ({ path }: Props) => {
   const router = useRouter();
 
   return (
-    <div className="sticky top-0 bg-white flex flex-row gap-2 justify-between w-full text-xl p-4 border-b-2 z-10">
-      <div className="flex flex-row gap-2">
-        <h1 className="text-3xl font-bold text-center">Briefly</h1>
-        <p className="self-end text-sm hidden sm:inline-block">
-          Stay Up to Date. News, Simplified
-        </p>
-        {path ? (
-          <Badge variant="outline" className="h-6 bg-zinc-200">
-            {path.charAt(0).toUpperCase() + path.slice(1)}
-          </Badge>
-        ) : (
-          <Badge variant="outline" className="h-6 bg-zinc-200">
-            World
-          </Badge>
-        )}
+    <header className="sticky top-0 z-20 bg-background/80 backdrop-blur-md border-b border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20">
+          <div className="flex items-center gap-4 sm:gap-8">
+            <h1 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-primary">
+              Briefly
+            </h1>
+            <nav className="hidden sm:flex items-center gap-1">
+              <span className="text-muted-foreground text-sm tracking-wide uppercase">
+                {path ? path.charAt(0).toUpperCase() + path.slice(1) : "World"}
+              </span>
+            </nav>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <p className="hidden lg:block text-sm text-muted-foreground italic">
+              News, Simplified
+            </p>
+            <Select
+              defaultValue={path || "world"}
+              onValueChange={(value) => router.push(`/${value}`)}
+            >
+              <SelectTrigger className="w-[140px] sm:w-[180px] bg-secondary border-border text-secondary-foreground hover:bg-muted transition-colors">
+                <SelectValue placeholder="World" />
+              </SelectTrigger>
+              <SelectContent className="bg-popover border-border">
+                <SelectItem value="world" className="focus:bg-muted">World</SelectItem>
+                <SelectItem value="business" className="focus:bg-muted">Business</SelectItem>
+                <SelectItem value="entertainment" className="focus:bg-muted">Entertainment</SelectItem>
+                <SelectItem value="technology" className="focus:bg-muted">Technology</SelectItem>
+                <SelectItem value="asia" className="focus:bg-muted">Asia</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
       </div>
-      <div className="flex items-center gap-2">
-        <Select
-          defaultValue={path}
-          onValueChange={(value) => router.push(`/${value}`)}
-        >
-          <SelectTrigger className="w-[150px] sm:w-[200px]">
-            <SelectValue placeholder="World" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="world">World</SelectItem>
-            <SelectItem value="business">Business</SelectItem>
-            <SelectItem value="entertainment">Entertainment</SelectItem>
-            <SelectItem value="technology">Technology</SelectItem>
-            <SelectItem value="asia">Asia</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    </div>
+    </header>
   );
 };
 

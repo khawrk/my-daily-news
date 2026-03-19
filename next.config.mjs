@@ -1,12 +1,13 @@
-import type { NextConfig } from "next";
-const withPWA = require("next-pwa")({
+import withPWA from "next-pwa";
+
+const pwaConfig = withPWA({
   dest: "public",
-  register: true,
-  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
 });
 
-const nextConfig: NextConfig = withPWA({
-  webpack(config: { module: { rules: { test: RegExp; use: string[] }[] } }) {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],
@@ -14,6 +15,10 @@ const nextConfig: NextConfig = withPWA({
     return config;
   },
   reactStrictMode: true,
+  devIndicators: {
+    buildActivity: false,
+    buildActivityPosition: "bottom-right",
+  },
   images: {
     remotePatterns: [
       {
@@ -30,6 +35,6 @@ const nextConfig: NextConfig = withPWA({
       },
     ],
   },
-});
+};
 
-export default nextConfig;
+export default pwaConfig(nextConfig);
